@@ -10,6 +10,11 @@ import os
 from llama_cpp import Llama
 from htmlTemplate import css, bot_template, user_template
 
+__import__('pysqlite3')
+import sys
+
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 load_dotenv()
 Okey = os.environ.get('OPENAI_API_KEY')
 
