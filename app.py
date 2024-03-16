@@ -1,3 +1,8 @@
+import pysqlite3
+import sys
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 import streamlit as st
 # from dotenv import load_dotenv
 from PyPDF2 import PdfReader
@@ -9,10 +14,7 @@ import os
 # import openai
 from llama_cpp import Llama
 from htmlTemplate import css, bot_template, user_template
-import pysqlite3
-import sys
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 
 load_dotenv()
 Okey = os.environ.get('OPENAI_API_KEY')
