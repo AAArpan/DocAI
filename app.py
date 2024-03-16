@@ -15,7 +15,7 @@ import os
 from llama_cpp import Llama
 from htmlTemplate import css, bot_template, user_template
 
-MODEL_PATH = ## Enter path to your model
+MODEL_PATH = 'C:/projectA/ ' ## Enter path to your model
 load_dotenv()
 Hkey = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
 
