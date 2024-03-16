@@ -1,3 +1,4 @@
+# NO LANGCHAIN LIBRARY USED
 import pysqlite3
 import sys
 __import__('pysqlite3')
@@ -27,6 +28,7 @@ model_name="hkunlp/instructor-xl"
 client1 = Client(settings = Settings(persist_directory="./", is_persistent=True))
 collection1_ = client1.get_or_create_collection(name="shiv", embedding_function=huggingface_ef)
 
+## Reading the pdfs and creating chunks of the extracted texts
 def get_pdf_text(pdf_docs):
     text=""
     docs= {}
@@ -40,8 +42,7 @@ def get_pdf_text(pdf_docs):
             docs[page_no] = text_chunks
     return docs, text
 
-
-
+## Creating a vectorDB for embeddings using chromaDB
 def add_text_to_collection(file):
     docs, text = get_pdf_text(file)
     docs_strings = [] 
@@ -57,7 +58,7 @@ def add_text_to_collection(file):
             ids.append(id)
             id += 1
 
-
+    ## Append page_no as metadata for all the chunks of text
     collection1_.add(
         ids=[str(id) for id in ids], 
         documents=docs_strings,  
@@ -67,6 +68,7 @@ def add_text_to_collection(file):
     # Return a success message
     return "PDF embeddings successfully added to collection"
 
+## taking similar chunks of text as per the given query
 def query_collection(texts: str, n: int) -> List[str]:
     result = collection1_.query(
                   query_texts = texts,
@@ -79,7 +81,6 @@ def query_collection(texts: str, n: int) -> List[str]:
         resulting_strings.append(f"Page {page_no['page_no']}: {text_chunk}")
     return resulting_strings
 
-
 def get_response(queried_texts: List[str],) -> List[dict]:
     global messages
     messages = [
@@ -90,7 +91,6 @@ def get_response(queried_texts: List[str],) -> List[dict]:
                 {"role": "user", "content": ''.join(queried_texts)}
           ]
 
-    
     llm = Llama(model_path=MODEL_PATH, chat_format="llama-2")  # Set chat_format according to the model
     llama_response = llm.create_chat_completion(
         messages = [
@@ -99,11 +99,10 @@ def get_response(queried_texts: List[str],) -> List[dict]:
                  will quote the page number while answering any questions,\
                  It is always at the start of the prompt in the format 'page n'."},
             {
-                "role": "user", "content": ''.join(queried_texts)
+                "role": "user", "content": ''.join(queried_texts) ## content have similar chunks as well as the query
             }
     ])
 
-    
     # response = openai.chat.completions.create(
     #                         model = "gpt-3.5-turbo",
     #                         messages = messages,
@@ -111,7 +110,7 @@ def get_response(queried_texts: List[str],) -> List[dict]:
     #                  )
 
     response_msg = llama_response['choices'][0]['message']['content']
-    # messages = messages + [{"role":'assistant', 'content': response_msg}]
+    messages = messages + [{"role":'assistant', 'content': response_msg}] ## ------> Adding memory
     return response_msg
 
 
@@ -133,7 +132,7 @@ def handle_userinput(user_question):
     return answer
 
 class SentenceSplitter:
-    def __init__(self, chunk_size: int = 250, chunk_overlap: int = 50):
+    def __init__(self, chunk_size: int = 250, chunk_overlap: int = 50): ## chunk size for tokens is 250 and overlapping tokens is 50, to prevent the incomplete input to the model
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
 
@@ -187,10 +186,6 @@ def main():
                 docs, text = get_pdf_text(pdf_docs)
                 confirm = add_text_to_collection(pdf_docs)
                 st.write(confirm)
-
-                # print(type(docs))
-                # print(docs)
-                # create vector store
 
 
 if __name__ =="__main__":
