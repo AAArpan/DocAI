@@ -4,7 +4,7 @@ __import__('pysqlite3')
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import streamlit as st
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 import re
 import chromadb.utils.embedding_functions as embedding_functions
