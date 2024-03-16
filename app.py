@@ -17,10 +17,7 @@ from htmlTemplate import css, bot_template, user_template
 
 
 load_dotenv()
-Okey = os.environ.get('OPENAI_API_KEY')
-
-# openai.api_key = Okey
-Hkey = "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"
+Hkey = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
 
 huggingface_ef = embedding_functions.HuggingFaceEmbeddingFunction(
 api_key=Hkey,
