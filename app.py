@@ -1,5 +1,5 @@
 import streamlit as st
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 import re
 import chromadb.utils.embedding_functions as embedding_functions
@@ -14,7 +14,7 @@ load_dotenv()
 Okey = os.environ.get('OPENAI_API_KEY')
 
 # openai.api_key = Okey
-Hkey = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
+Hkey = "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"
 
 huggingface_ef = embedding_functions.HuggingFaceEmbeddingFunction(
 api_key=Hkey,
