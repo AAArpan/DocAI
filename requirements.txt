@@ -1,0 +1,8 @@
+PyPDF2
+python-dotenv
+streamlit
+openai
+altair
+tiktoken
+llama-cpp-python
+chromadb
