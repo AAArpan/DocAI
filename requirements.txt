@@ -5,4 +5,5 @@ openai
 altair
 tiktoken
 llama-cpp-python
+pysqlite3-binary
 chromadb
