@@ -15,7 +15,7 @@ import os
 from llama_cpp import Llama
 from htmlTemplate import css, bot_template, user_template
 
-
+MODEL_PATH = ## Enter path to your model
 load_dotenv()
 Hkey = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
 
@@ -91,7 +91,7 @@ def get_response(queried_texts: List[str],) -> List[dict]:
           ]
 
     
-    llm = Llama(model_path=r"C:\Users\arpan\OneDrive\Desktop\ChatPDF\model\mistral-7b-instruct-v0.2.Q5_K_M.gguf", chat_format="llama-2")  # Set chat_format according to the model
+    llm = Llama(model_path=MODEL_PATH, chat_format="llama-2")  # Set chat_format according to the model
     llama_response = llm.create_chat_completion(
         messages = [
             {"role": "system", "content": "You are a helpful assistant.\
