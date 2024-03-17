@@ -1,5 +1,5 @@
 # DocAI
-Document QnA with AI/
+Document QnA with AI
 
 # The Project Overview:
 
@@ -14,7 +14,7 @@ Document AI is a powerful tool developed, offering state-of-the-art techniques f
 
 https://github.com/AAArpan/DocAI/assets/108794407/31931cc0-24b7-4620-8a99-a7798d33840a
 
-Framework Independent: 
+# Framework Independent: 
 
 Unlike traditional approaches that may rely on specific frameworks like LangChain, this implementation demonstrates flexibility and independence in choosing the tools best suited for the task.
 
